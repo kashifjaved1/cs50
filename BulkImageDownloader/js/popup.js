@@ -13,23 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.body.appendChild(document.createElement("br"));
 
-    let p = document.createElement("p");
-    p.className = "hidden";
-    p.innerText = "This is a Paragraph which is used for Hidden spacing. This is a Paragraph which is used for Hidden spacing. Yep";
-    document.querySelector("pre").appendChild(p);
-
     let msg = {
         text: "hello"
     }
 
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        console.log("Tab ID: " + tabs[0].id);
         chrome.tabs.sendMessage(tabs[0].id, msg, (response) => {
             console.log(response.length);
             for (let i = 0; i < response.length; i++) {
-                /*if (i % 2 === 0) {
-                    document.body.appendChild(document.createElement("br"));
-                }*/
                 let inp = document.createElement("input");
                 inp.type = "checkbox";
                 inp.id = i;
@@ -64,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             document.getElementById("download").addEventListener('click', _ => {
                 let checked = [...document.querySelectorAll('input:checked')];
-                //console.log(checked.length);
                 for(let i = 0; i < checked.length; i++){
                     chrome.downloads.download({
                         url: checked[i].value,
